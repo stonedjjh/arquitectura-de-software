@@ -38,7 +38,9 @@ Este proyecto no es una aplicación, sino una **Base de Conocimiento Centralizad
 *(Espacio reservado para notas de Modelado de Datos, SQL, NoSQL, Redis, etc.)*
 
 ### Otros Repositorios Relacionados
-Temas más extensos como **Docker**, **Bases de Datos**, **CI/CD** y **AWS** los mantengo en repositorios separados dedicados a esos entornos.
+Temas más extensos o altamente especializados los mantengo en repositorios dedicados:
+- 🐳 **[Notas de Docker](https://github.com/stonedjjh/notas_docker)**: Referencia para contenedores, imágenes y Docker Compose.
+- **CI/CD** y **AWS**: (También en repositorios separados).
 
 ## Cómo usar esta guía
 
