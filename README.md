@@ -43,7 +43,7 @@ Temas más extensos o altamente especializados los mantengo en repositorios dedi
 - ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat&logo=github-actions&logoColor=white) **[GitHub Actions](https://github.com/stonedjjh/github-actions)**: Pipelines de CI/CD y automatización de despliegues.
 - ![Patrones](https://img.shields.io/badge/Patrones_de_Diseño-4CAF50?style=flat) **[Patrones de Diseño](https://github.com/stonedjjh/patrones-diseno)**: Referencia y ejemplos prácticos.
 - ![SOLID](https://img.shields.io/badge/SOLID_%26_Clean_Code-00599C?style=flat) **[SOLID & Clean Architecture](https://github.com/stonedjjh/solid-clean)**: Principios de arquitectura.
-- ![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat&logo=amazon-aws&logoColor=white) **AWS Cloud**: (Mantenido en un entorno separado).
+- ![GCP](https://img.shields.io/badge/Google_Cloud-4285F4?style=flat&logo=google-cloud&logoColor=white) **[Google Cloud Platform](https://github.com/stonedjjh/Google-Cloud-Platform)**: Prácticas de arquitectura Cloud, Terraform y laboratorios de certificación.
 
 ## Cómo usar esta guía
 
