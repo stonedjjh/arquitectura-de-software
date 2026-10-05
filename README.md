@@ -31,6 +31,9 @@ Este proyecto no es una aplicación, sino una **Base de Conocimiento Centralizad
 - [Gestión de Dominios y Registros DNS](01-infraestructura-web/04-cloudflare/gestion-dns.md)
 - [Configuración de SSL y Proxies en Cloudflare](01-infraestructura-web/04-cloudflare/ssl-proxy.md)
 
+**5. Servicios Externos y Testing**
+- [Mailtrap: Configuración y Testing de Emails](01-infraestructura-web/05-servicios-externos/mailtrap.md) *(Pendiente)*
+
 ### II. Arquitectura de Software (`/02-arquitectura-software`)
 *(Espacio reservado para futuras notas sobre Patrones de Diseño, Clean Architecture, Microservicios, etc.)*
 
