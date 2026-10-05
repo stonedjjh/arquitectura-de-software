@@ -39,8 +39,11 @@ Este proyecto no es una aplicación, sino una **Base de Conocimiento Centralizad
 
 ### Otros Repositorios Relacionados
 Temas más extensos o altamente especializados los mantengo en repositorios dedicados:
-- 🐳 **[Notas de Docker](https://github.com/stonedjjh/notas_docker)**: Referencia para contenedores, imágenes y Docker Compose.
-- **CI/CD** y **AWS**: (También en repositorios separados).
+- ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white) **[Notas de Docker](https://github.com/stonedjjh/notas_docker)**: Referencia para contenedores, imágenes y Docker Compose.
+- ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat&logo=github-actions&logoColor=white) **[GitHub Actions](https://github.com/stonedjjh/github-actions)**: Pipelines de CI/CD y automatización de despliegues.
+- ![Patrones](https://img.shields.io/badge/Patrones_de_Diseño-4CAF50?style=flat) **[Patrones de Diseño](https://github.com/stonedjjh/patrones-diseno)**: Referencia y ejemplos prácticos.
+- ![SOLID](https://img.shields.io/badge/SOLID_%26_Clean_Code-00599C?style=flat) **[SOLID & Clean Architecture](https://github.com/stonedjjh/solid-clean)**: Principios de arquitectura.
+- ![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat&logo=amazon-aws&logoColor=white) **AWS Cloud**: (Mantenido en un entorno separado).
 
 ## Cómo usar esta guía
 
