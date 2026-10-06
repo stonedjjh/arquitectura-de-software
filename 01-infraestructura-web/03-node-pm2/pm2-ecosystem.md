@@ -53,11 +53,22 @@ pm2 logs mi-app-web --lines 100  # Ver solo las últimas 100 líneas
 pm2 restart mi-app-web
 pm2 reload mi-app-web  # Recarga "suave" sin tirar las conexiones activas
 
+> [!WARNING]
+> **Cambios en el archivo `.env`:** Si modificaste tu archivo `.env` (ej: cambiaste credenciales de BD o API Keys), un `restart` normal **NO** aplicará las nuevas variables. PM2 guarda en memoria el entorno con el que arrancó la primera vez. Para forzar la lectura del nuevo `.env` debes ejecutar:
+> ```bash
+> pm2 restart mi-app-web --update-env
+> ```
+
 # 6. Detener o eliminar una app del gestor
 pm2 stop mi-app-web
 pm2 delete mi-app-web
 
-# 7. Guardar el estado actual para que sobreviva a reinicios del servidor VPS
+# 7. Persistencia: Lograr que PM2 sobreviva si el VPS se reinicia (corte eléctrico, mantenimiento)
+# Paso A: Generar el script de integración con el sistema de arranque (systemd)
+pm2 startup systemd
+# IMPORTANTE: PM2 imprimirá un comando en consola (empieza con "sudo env PATH..."). 
+# Debes copiar y pegar ese comando y ejecutarlo.
+
+# Paso B: Guardar el estado actual de los procesos para que se auto-inicien
 pm2 save
-pm2 startup
 ```

@@ -21,6 +21,52 @@ En el panel de Cloudflare (sección DNS), manejarás habitualmente estos registr
 
 ---
 
+## 🔗 El Flujo Universal de Vinculación: Dominio ➔ VPS
+
+Este es un paso clave que muchos tutoriales omiten: cómo vincular un dominio recién comprado (ej. Namecheap) con tu máquina VPS, pasando por Cloudflare como puente central.
+
+```text
+[ Registrador: Namecheap ] ──(Nameservers)──> [ DNS: Cloudflare ] ──(Registro A)──> [ VPS: Ubuntu ]
+  (Compra del dominio)                         (Tráfico y SSL)                       (Tu Máquina)
+```
+
+### Paso 1: En el Registrador de Dominio (ej. Namecheap)
+Por defecto, al comprar un dominio, este apunta a los servidores DNS básicos del registrador. Debemos delegar esa responsabilidad.
+1. Entra a la lista de tus dominios y busca la sección **Nameservers** (Servidores de Nombres).
+2. Cambia la opción por defecto a **Custom DNS**.
+3. Coloca los Nameservers exactos que te asigna Cloudflare (ej: `ns1.cloudflare.com` y `ns2.cloudflare.com`).
+4. Guarda el cambio.
+*¿Qué lograste?* Le dijiste a Internet: *"Cualquiera que pregunte por mi dominio, pregúntenle a Cloudflare, ellos saben cómo llegar"*.
+
+### Paso 2: En el Panel del VPS (Proveedor de Hosting)
+1. Ubica y copia la **IP Pública** de tu servidor (ej: `203.0.113.50`).
+2. Configura el **Hostname** de la máquina (ej: `server1.midominio.com`).
+3. *(Opcional)* Si tu proveedor tiene un campo "Attach Domain", complétalo para que su sistema interno de soporte sepa a qué proyecto pertenece ese VPS.
+
+### Paso 3: En Cloudflare (El Puente Definitivo)
+Aquí es donde atas todo el tráfico hacia tu IP real de manera segura.
+1. En Cloudflare, vas a la pestaña **DNS ➔ Records**.
+2. **Registro A raíz (`@` o `midominio.com`):**
+   - Type: `A`
+   - Name: `@`
+   - IPv4 address: `203.0.113.50`
+   - Proxy status: **Proxied (Nube Naranja)** *(Para protección DDoS, ocultar IP real y aplicar SSL).*
+3. **Registro CNAME para `www`:**
+   - Type: `CNAME`
+   - Name: `www`
+   - Target: `midominio.com`
+   - Proxy status: **Proxied (Nube Naranja)**
+4. **Registro A para conexión al servidor (SSH):**
+   - Type: `A`
+   - Name: `server1`
+   - IPv4 address: `203.0.113.50`
+   - Proxy status: **DNS only (Nube Gris)** *(Crucial: La nube debe estar gris para que puedas conectar por SSH/PuTTY a `server1.midominio.com` sin que Cloudflare bloquee tu puerto personalizado).*
+
+> [!TIP]
+> **Escalabilidad Centralizada:** Documentar esto vale oro. Cuando tengas más clientes o servidores, el Servidor 1 tendrá la IP `.193` (Tienda Principal) y el Servidor 2 tendrá otra IP `.50` (Microservicio). **Nunca más tendrás que tocar el Registrador.** Todo se administrará desde una sola pantalla en Cloudflare añadiendo Registros `A` hacia las IPs respectivas.
+
+---
+
 ## 🛠️ Caso de Uso Integral (Arquitectura de Producción)
 
 A modo de *cheatsheet* de la vida real, así se ve una arquitectura madura combinando Nginx, UFW (Firewall) y Cloudflare:

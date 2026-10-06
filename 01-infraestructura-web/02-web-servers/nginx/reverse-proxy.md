@@ -25,13 +25,41 @@ server {
     # ssl_certificate /etc/letsencrypt/live/tudominio.com/fullchain.pem;
     # ssl_certificate_key /etc/letsencrypt/live/tudominio.com/privkey.pem;
 
+    # Configuración para Single Page Application (SPA) en el frontend
     location / {
-        proxy_pass http://localhost:3000; # Puerto de tu app Node
+        root /var/www/miapp/dist;
+        index index.html;
+        # Directiva salvadora para que React Router maneje las rutas sin dar error 404 al recargar
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Proxy Inverso hacia Express (API)
+    location /api/ {
+        proxy_pass http://localhost:5000; # Tu backend Node.js
         proxy_http_version 1.1;
+        
+        # Soporte para WebSockets
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
+        
+        # Headers para restaurar la IP real del cliente (vital tras Cloudflare)
         proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        
+        # Desactivar buffering para streaming de IA / SSE
+        proxy_buffering off;
+        proxy_read_timeout 300s;
+        
+        # Permitir subida de archivos pesados
+        client_max_body_size 25M;
+    }
+
+    # Caché estático de alto rendimiento para imágenes y bundles de frontend (Vite/React)
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|webp|woff|woff2|ttf|mp4)$ {
+        expires 1y;
+        add_header Cache-Control "public, no-transform";
     }
 }
 ```

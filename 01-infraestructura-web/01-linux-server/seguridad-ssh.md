@@ -62,3 +62,32 @@ Para que todas las configuraciones de seguridad surtan efecto, debes reiniciar e
 ```bash
 sudo systemctl restart ssh
 ```
+
+## 4. Permisos Estrictos (El error `Permission denied`)
+Si después de configurar todo, el servidor sigue pidiendo contraseña o deniega el acceso (`Permission denied (publickey)`), la causa número uno es que OpenSSH es extremadamente estricto con los permisos de archivo. Si otros usuarios del sistema pueden leer tu carpeta `.ssh` o tu archivo de llaves, el servidor se rehúsa a autenticarte por seguridad.
+
+Ejecuta esto en el servidor para aplicar la receta exacta de permisos:
+```bash
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+chown -R $USER:$USER ~/.ssh
+```
+
+## 5. Usuarios de Windows (Suite PuTTY)
+Si usas Windows, es probable que utilices la suite **PuTTY**, la cual **no lee de forma nativa** las llaves privadas en el formato estándar de OpenSSH (`id_ed25519` o `id_rsa`), sino que usa su formato propietario `.ppk` (PuTTY Private Key). Si intentas cargar la llave directamente en PuTTY, te dará el error `Unable to use key file (not in PuTTY format)`.
+
+### Conversión con PuTTYgen
+1. Abre **PuTTYgen**.
+2. Ve al menú `Conversions` -> `Import Key` y selecciona tu llave privada de OpenSSH.
+3. Haz clic en **Save private key** para exportarla al formato `.ppk`.
+*(Opcional: El texto de la caja superior "Public key for pasting into OpenSSH authorized_keys file" es lo que debes pegar en el servidor).*
+
+### Configuración de sesión en PuTTY
+Para conectarte en 1 clic:
+1. En `Session`: Especifica el IP y tu puerto personalizado (ej. `2244`).
+2. En el menú lateral, ve a `Connection` -> `SSH` -> `Auth` -> `Credentials`.
+3. En **Private key file for authentication**, carga tu archivo `.ppk`.
+4. Vuelve a `Session`, ponle un nombre y guarda en `Saved Sessions`.
+
+> [!TIP]
+> **Pageant y Transferencias:** Utiliza **Pageant** (Agente SSH de PuTTY) para cargar tu llave `.ppk` una sola vez; la mantendrá descifrada en memoria para que no escribas su contraseña a cada rato. Esto también te habilita para usar **PSCP / PSFTP** y transferir archivos pesados por terminal desde Windows al VPS.
