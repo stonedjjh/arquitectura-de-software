@@ -1,5 +1,8 @@
 # Módulo 01: Infraestructura Web y Servidores
 
+> [!IMPORTANT]
+> **Convención de Direcciones IP:** A lo largo de toda la documentación de este módulo (Nginx, DNS, SSH, etc.), utilizaremos la IP ficticia `192.168.1.50` como ejemplo para referirnos a la **IP Pública de tu Servidor (VPS)**. Siempre que veas esta dirección en los tutoriales o comandos, **recuerda sustituirla por tu IP real**.
+
 Este módulo engloba todos los conceptos, pasos y configuraciones necesarias para tomar un servidor en blanco (VPS), asegurarlo, y desplegar aplicaciones web y APIs listas para producción con las mejores prácticas de la industria.
 
 ## Flujo de Implementación Integral

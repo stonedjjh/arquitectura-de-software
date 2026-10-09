@@ -1,5 +1,8 @@
 # Gestión de Dominios y DNS en Cloudflare
 
+> [!IMPORTANT]
+> Para los siguientes ejemplos de configuración de registros, supondremos que la IP pública de tu VPS es `192.168.1.50`. Recuerda sustituirla por tu IP real al configurar tu dominio.
+
 Antes de configurar proxies o certificados, es vital entender cómo funciona la delegación de dominios y cómo apuntar el tráfico hacia tu servidor VPS.
 
 ## Conceptos Básicos
